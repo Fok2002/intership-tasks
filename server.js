@@ -1,12 +1,14 @@
 require("dotenv").config();
 
 const express = require("express");
+const path = require("path");
 const mongoose = require("mongoose");
 const { errorHandler } = require("./middleware/errorHandler");
 
 const app = express();
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
 const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/usersdb";
 
@@ -17,7 +19,7 @@ mongoose.connect(mongoURI)
 app.use("/users", require("./routes/users"));
 
 app.get("/", (req, res) => {
-    res.json({ success: true, message: "REST API Running" });
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Catch-all for undefined routes — must come AFTER all valid routes

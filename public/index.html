@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <div class="app">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo"><span class="logo-icon">🎓</span><h1>Student Dashboard</h1></div>
+                <p class="header-subtitle">Manage your students in one place</p>
+            </div>
+            <div class="header-right">
+                <div class="stat-pill" id="stat-total"><span class="stat-number">0</span><span class="stat-label">Students</span></div>
+                <button class="btn btn-primary" id="btn-add"><span class="btn-icon">+</span> Add Student</button>
+            </div>
+        </header>
+
+        <div class="toolbar">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="search-input" placeholder="Search students by name or email..." autocomplete="off">
+            </div>
+        </div>
+
+        <main class="content">
+            <div class="loader" id="loader"><div class="spinner"></div><p>Loading students...</p></div>
+            <div class="empty-state hidden" id="empty-state">
+                <div class="empty-icon">📚</div><h2>No students yet</h2><p>Get started by adding your first student</p>
+                <button class="btn btn-primary" id="btn-add-empty"><span class="btn-icon">+</span> Add Student</button>
+            </div>
+            <div class="empty-state hidden" id="no-results"><div class="empty-icon">🔍</div><h2>No results found</h2><p>Try a different search term</p></div>
+            <div class="table-wrapper hidden" id="table-view">
+                <table class="students-table">
+                    <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Actions</th></tr></thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+        </main>
+        <div class="toast-container" id="toast-container"></div>
+    </div>
+
+    <!-- Add / Edit Modal -->
+    <div class="modal-overlay hidden" id="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header"><h2 id="modal-title">Add Student</h2><button class="modal-close" id="modal-close">&times;</button></div>
+            <form id="student-form" novalidate>
+                <div class="form-group"><label for="input-name">Full Name</label><input type="text" id="input-name" placeholder="e.g. Alice Johnson" required><span class="form-error" id="error-name"></span></div>
+                <div class="form-group"><label for="input-email">Email Address</label><input type="email" id="input-email" placeholder="e.g. alice@university.edu" required><span class="form-error" id="error-email"></span></div>
+                <input type="hidden" id="input-id">
+                <div class="form-actions"><button type="button" class="btn btn-ghost" id="btn-cancel">Cancel</button><button type="submit" class="btn btn-primary" id="btn-submit"><span id="btn-submit-text">Add Student</span></button></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirm Modal -->
+    <div class="modal-overlay hidden" id="delete-overlay">
+        <div class="modal modal-sm">
+            <div class="modal-header"><h2>Delete Student</h2><button class="modal-close" id="delete-close">&times;</button></div>
+            <p class="delete-msg">Are you sure you want to delete <strong id="delete-name"></strong>? This cannot be undone.</p>
+            <div class="form-actions"><button class="btn btn-ghost" id="delete-cancel">Cancel</button><button class="btn btn-danger" id="delete-confirm">Delete</button></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
